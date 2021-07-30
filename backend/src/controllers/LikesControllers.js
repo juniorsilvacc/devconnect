@@ -2,17 +2,43 @@ const Post = require('../models/Post');
 
 module.exports = {
 
-  async store(req, res){
+  async liked(req, res){
+    const {id} = req.params;
+    const {user} = req.headers;
 
-    const post = await Post.findById(req.params.id);
+    const likedPost = await Post.findById(id);
+    if(!likedPost){
+      return res.status(400).json({message: "Post does not exist"});
+    }
 
-    post.likes += 1;
-    
-    await post.save();
+    if(likedPost.likes.includes(user)){
+      return res.status(400).json({message: "Post already liked"});
+    }
 
-    req.io.emit('like', post);
+    likedPost.likes.push(user);
+    await likedPost.save();
 
-    return res.json(post)
+    return res.status(200).json({message: "Liked post", data: likedPost});
+  },
+  async noLiked(req, res){
+
+    const {id} = req.params;
+    const {user} = req.headers;
+
+    const noLikedPost = await Post.findById(id);
+    if(!noLikedPost){
+      return res.status(400).json({message: "Post does not exist"});
+    }
+
+    if(!noLikedPost.likes.includes(user)){
+      return res.status(400).json({message: "Post not liked yet"});
+    }
+
+    noLikedPost.likes.pull(user);
+    await noLikedPost.save();
+
+    return res.status(200).json({message: "Not liked post", data: noLikedPost});
+
   }
 
 };

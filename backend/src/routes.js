@@ -18,6 +18,7 @@ routes.post("/signin", SigninController.signin);
 routes.post("/posts", upload.single('image'), PostControllers.store);
 routes.get("/posts", PostControllers.index);
 
-routes.post("/posts/:id/like", LikesControllers.store);
+routes.post("/posts/:id/like", LikesControllers.liked);
+routes.post("/posts/:id/nolike", LikesControllers.noLiked);
 
 module.exports = routes;

@@ -21,11 +21,12 @@ const PostSchema = new mongoose.Schema({
   image: {
     type: String,
   },
-  likes: {
-    type: Number,
-    default: 0,
-  }
-
+  likes: [{
+    // type:  Number,
+    // default: 0,
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: 'User',
+  }]
 }, {
   timestamps: true,
 });
