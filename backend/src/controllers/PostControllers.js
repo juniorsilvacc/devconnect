@@ -1,4 +1,7 @@
 const Post = require('../models/Post');
+const sharp = require('sharp');
+const path = require('path');
+const fs = require('fs');
 
 module.exports = {
 
@@ -8,14 +11,31 @@ module.exports = {
     const {filename: image} = req.file;
     const {user} = req.headers;
 
+    //Mudando o type para jpg da imagem
+    const [name] = image.split('.');
+    const fileName = `${name}.jpg`;
+
+    //Tratando a imagem para o frontend
+    await sharp(req.file.path)
+      .resize(500)
+      .jpeg({quality: 70})
+      .toFile(
+        path.resolve(req.file.destination, 'resized', fileName)
+      )
+    
+    //Apagando a imagem original
+    fs.unlinkSync(req.file.path);
+
     const post = await Post.create({
       author,
       place,
       description, 
       hashtags,
-      image,
+      image: fileName,
       user
-    })
+    });
+
+    req.io.emit('post', post);
 
     return res.status(200).json({message: "Post Created Successfully", data: post});
 

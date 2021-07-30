@@ -8,7 +8,7 @@ const upload = multer(uploadConfig);
 const UserControllers = require('./controllers/UserControllers');
 const SigninController = require('./controllers/SigninControollers');
 const PostControllers = require('./controllers/PostControllers');
-
+const LikesControllers = require('./controllers/LikesControllers');
 
 routes.post("/users", UserControllers.store);
 routes.get("/users", UserControllers.index);
@@ -17,5 +17,7 @@ routes.post("/signin", SigninController.signin);
 
 routes.post("/posts", upload.single('image'), PostControllers.store);
 routes.get("/posts", PostControllers.index);
+
+routes.post("/posts/:id/like", LikesControllers.store);
 
 module.exports = routes;
