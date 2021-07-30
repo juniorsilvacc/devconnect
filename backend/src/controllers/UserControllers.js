@@ -17,7 +17,7 @@ module.exports = {
       password
     });
 
-    return res.status(200).json(createdUser);
+    return res.status(200).json({message: "User Created Successfully", data: createdUser});
 
   },
 
@@ -25,7 +25,7 @@ module.exports = {
 
     const allUser = await User.find();
 
-    return res.status(200).json(allUser);
+    return res.status(200).json({message: "Successful Listed User", data: allUser});
 
   }
 
