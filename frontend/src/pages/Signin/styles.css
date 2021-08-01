@@ -2,7 +2,7 @@
   height: 90vh;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   padding: 0 22px;
   text-align: center;
 }
@@ -27,9 +27,9 @@ form{
 }
 
 .form img{
-  width: 157px;
+  width: 179px;
   align-self: center;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 }
 
 .main-signin .main-content .form{
@@ -39,7 +39,6 @@ form{
   padding: 20px;
   width: 100%;
   max-width: 350px;
-  height: 380px;
 }
 
 .form input{
@@ -49,22 +48,11 @@ form{
   border: 1px solid #DDD;
   border-radius: 3px;
   padding: 12px;
-  margin-bottom: 20px;
-}
-
-.buttonSignin{
-  width: 100%;
-  padding: 10px;
-  border-radius: 3px;
-  border: none;
-  background-color: #0095f6;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
+  margin-bottom: 12px;
 }
 
 .buttonTextRegister{
-  margin-top: 35px;
+  margin: 35px 0 50px 0;
 }
 
 .buttonTextRegister p{
@@ -81,5 +69,22 @@ form{
 @media screen and (max-width: 767px){
   .main-content .imagemLogo{
     display: none;
+  }
+}
+
+@media screen and (max-width: 920px){
+  .main-content img{
+    max-width: 420px;
+  }
+}
+
+@media screen and (max-width: 450px){
+  .main-signin .main-content .form{
+    border: none;
+    background-color: transparent;
+  }
+  .main-signin .main-content{
+    margin-top: 40px;
+    align-self: start;
   }
 }

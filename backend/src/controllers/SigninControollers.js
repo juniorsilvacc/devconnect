@@ -4,21 +4,25 @@ module.exports = {
 
   async signin(req, res){
 
-    const {username, password} = req.body;
+    const {email, password} = req.body;
 
-    const validUsername = await User.findOne({username});
+    const validUsername = await User.findOne({email});
 
     if(!validUsername){
-      return res.status(400).json({message: "User does not exit"});
+      return res.status(400).json({message: "E-mail does not exit"});
     }
 
     const validPassword = await User.findOne({
       password: password
     }).where({
-      username: username
+      email: email
     });
 
     const loggedIn = validPassword;
+
+    if(!loggedIn){
+      return res.status(400).json({message: "Incorrect email or password"});
+    }
 
     return res.status(200).json({message: "Success", data: loggedIn});
 

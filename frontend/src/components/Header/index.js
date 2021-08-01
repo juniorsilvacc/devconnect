@@ -5,7 +5,7 @@ import './styles.css'
 
 import {isLogged} from '../../helpers/AuthHandler'
 
-import Logo from '../../assets/DevConnect.png';
+import LogoHeader from '../../assets/DevConnect.png';
 import Camera from '../../assets/camera.svg';
 
 function Header() {
@@ -18,14 +18,14 @@ function Header() {
         {!logged &&
           <>
             <Link to="/">
-              <img src={Logo} alt="DevConnect" />
+              <img src={LogoHeader} alt="DevConnect" />
             </Link>
           </>
         }
         {logged &&
           <>
             <Link to="/">
-              <img src={Logo} alt="DevConnect" />
+              <img src={LogoHeader} alt="DevConnect" />
             </Link>
             <Link to="/post">
               <img src={Camera} alt="Postar publicação" />

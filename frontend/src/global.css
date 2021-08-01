@@ -10,3 +10,20 @@ body{
   font: 14px Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased !important;
 }
+
+.buttonSignin{
+  width: 100%;
+  padding: 10px;
+  border-radius: 3px;
+  border: none;
+  background-color: #0095f6;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: opacity 200ms;
+  margin-top: 8px;
+}
+
+.buttonSignin:hover{
+  opacity: 0.8;
+}
