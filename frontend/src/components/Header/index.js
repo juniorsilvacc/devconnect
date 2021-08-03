@@ -1,37 +1,37 @@
 import React from 'react'
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
+import {BsBoxArrowRight} from 'react-icons/bs';
+import {AiOutlineCamera} from 'react-icons/ai';
 
 import './styles.css'
 
-import {isLogged} from '../../helpers/AuthHandler'
-
 import LogoHeader from '../../assets/DevConnect.png';
-import Camera from '../../assets/camera.svg';
 
 function Header() {
 
-  let logged = isLogged();
+  const history = useHistory();
+
+  function loggoutHandler(){
+    localStorage.clear();
+    history.push("/")
+  }
 
   return (
     <header className="main-header">
       <div className="header-content">
-        {!logged &&
-          <>
-            <Link to="/">
-              <img src={LogoHeader} alt="DevConnect" />
-            </Link>
-          </>
-        }
-        {logged &&
-          <>
-            <Link to="/">
-              <img src={LogoHeader} alt="DevConnect" />
-            </Link>
+        <>
+          <Link to="/feed">
+            <img src={LogoHeader} alt="DevConnect" />
+          </Link>
+          <div className="headerIcon">
             <Link to="/post">
-              <img src={Camera} alt="Postar publicação" />
+              <AiOutlineCamera size={25} />
             </Link>
-          </>
-        }
+            <Link onClick={loggoutHandler}>
+              <BsBoxArrowRight size={25} />
+            </Link>
+          </div>
+        </>
       </div>
     </header>
   )

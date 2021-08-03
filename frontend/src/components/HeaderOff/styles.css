@@ -15,14 +15,3 @@
   align-items: center;
   justify-content: space-between;
 }
-
-.headerIcon{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.headerIcon svg{
-  margin-left: 25px;
-  color: black;
-}
