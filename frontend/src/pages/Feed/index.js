@@ -1,70 +1,45 @@
-import React, {Component} from 'react';
+import React, {useState, useEffect} from 'react';
 import './styles.css';
 
 import Header from '../../components/Header';
-
-import more from '../../assets/more.svg';
-import noLike from '../../assets/nolike.svg';
-import like from '../../assets/like.png';
-import comment from '../../assets/comment.svg';
-import send from '../../assets/send.svg';
+import Card from '../../components/Card';
 
 import api from '../../services/api';
 
-class Feed extends Component {
+function Feed() {
 
-  state = {
-    feed: [],
-  };
+  const [allPosts, setAllPosts] = useState([]);
+  
+  useEffect(() => {
+    async function getAllPosts(){
+      try {
+  
+        const loadedPosts = await api.get('posts');
+        const {data} = loadedPosts;
+        setAllPosts(data);
+        
+      } catch (error) {
+        alert('Não foi possível carregar os posts.');
+      }
+    }
+    getAllPosts();
+  }, [])
 
-  async componentDidMount(){
-    const response = await api.get('posts');
-
-    this.setState({feed: response.data});
-  }
-
-  render(){
-    return (
-      <>
-        <Header/>
-        <section className="post-list">
-         {this.state.feed.map(post => (
-            <article>
-              <header>
-                <div className="user-info">
-                  <span>{post.author}</span>
-                  <span className="place">{post.place}</span>
-                </div>
-                <img src={more} alt="" />
-              </header>
-
-              <img src={`http://localhost:3333/files/${post.image}`} alt="" />
-
-              <footer>
-                <div className="actions">
-                  <img src={noLike} alt="" />
-                  <img src={comment} alt="" />
-                  <img src={send} alt="" />
-                </div>
-
-                {post.likes.length > 1 ? 
-                  <strong>{post.likes.length} pessoas gostaram</strong> :
-                  post.likes.length == 1 ? 
-                  <strong>{post.likes.length} pessoa gostou</strong> :
-                  <strong>Não há curtidas</strong>
-                }
-                
-
-                <p>{post.description}</p>
-                <span>{post.hashtags}</span>
-
-              </footer>
-            </article>
-         ))}
-        </section>
-      </>
-    )
-  }
+  return (
+    <>
+      <Header/>
+      {allPosts.map((post) => (
+        <Card
+          key={post._id}
+          id={post._id}
+          author={post.author}
+          place={post.place}
+          image={post.image}
+          likes={post.likes}
+        />
+      ))}
+    </>
+  )
 }
 
-export default Feed
+export default Feed;

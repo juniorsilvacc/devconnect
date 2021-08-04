@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
 import {Link} from 'react-router-dom';
 import {useHistory} from 'react-router-dom';
+import {BiLoaderCircle} from 'react-icons/bi';
+
 import './styles.css';
 
 import HeaderOff from '../../components/HeaderOff';
@@ -15,11 +17,14 @@ function Signin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const [loading, setLoading] = useState(false);
+
   const history = useHistory();
 
   async function loginHandler(e) {
     e.preventDefault();
-    
+    setLoading(true);
+
     try {
 
       const response = await api.post('signin', {
@@ -29,14 +34,15 @@ function Signin() {
 
       const {data} = response;
       const userId = data.data._id;
-      const username = data.data.email;
+      const userEmail = data.data.email;
 
       localStorage.setItem('devUserId', userId);
-      localStorage.setItem('devUsername', username);
+      localStorage.setItem('devUsername', userEmail);
 
       history.push('/feed');
     } catch (error) {
-      alert('Erro ao cadastrar usuário, tente novamente!');
+      alert('Senha ou E-mail Incorreto, tente novamente!');
+      setLoading(false);
     }
 
   }
@@ -50,19 +56,25 @@ function Signin() {
           <img className="imagemLogo" src={HeroLogo} alt="Hero Logo" />
           <div className="form">
             <form>
-              <img src={LogoSignin} alt="Logo Signin" />
-              <input 
-                type="email"
-                placeholder="E-mail"
-                value={email}
-                onChange={e=>setEmail(e.target.value)}
-              />
-              <input 
-                placeholder="Senha"
-                type="password"
-                value={password}
-                onChange={e=>setPassword(e.target.value)}
-              />
+              {loading ?
+                <BiLoaderCircle size={40}/> :
+                <>
+                  <img src={LogoSignin} alt="Logo Signin" />
+                  <input 
+                    type="email"
+                    placeholder="E-mail"
+                    value={email}
+                    onChange={e=>setEmail(e.target.value)}
+                  />
+                  <input 
+                    placeholder="Senha"
+                    type="password"
+                    value={password}
+                    onChange={e=>setPassword(e.target.value)}
+                  />
+                </>
+              }
+              
             </form>
             <button 
               className="buttonSignin" 

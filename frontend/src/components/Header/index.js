@@ -27,7 +27,7 @@ function Header() {
             <Link to="/post">
               <AiOutlineCamera size={25} />
             </Link>
-            <Link onClick={loggoutHandler}>
+            <Link to="" onClick={loggoutHandler}>
               <BsBoxArrowRight size={25} />
             </Link>
           </div>

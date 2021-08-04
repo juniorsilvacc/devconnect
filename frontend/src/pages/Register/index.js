@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import {useHistory} from 'react-router-dom'
 import {Link} from 'react-router-dom';
 import './styles.css';
 
@@ -15,12 +16,14 @@ function Signin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const history = useHistory();
+
   async function registrationHandler(e){
     e.preventDefault();
 
     try {
 
-      await api.post('users', {
+      const response = await api.post('users', {
         name,
         username,
         email,
@@ -28,11 +31,15 @@ function Signin() {
       })
 
       alert('Usuário cadastrado com sucesso!');
+      const {data} = response;
 
-      setName('');
-      setUsername('');
-      setEmail('');
-      setPassword('');
+      const userId = data.data._id;
+      const userEmail = data.data.email;
+
+      localStorage.setItem('devUserId', userId);
+      localStorage.setItem('devUsername', userEmail);
+
+      history.push('/feed')
 
     } catch (error) {
 

@@ -41,6 +41,13 @@ form{
   max-width: 350px;
 }
 
+.main-signin .main-content .form svg{
+  display: flex;
+  align-self: center;
+  margin: 40px 0;
+  color: #333;
+}
+
 .form input{
   width: 100%;
   height: 40px;
