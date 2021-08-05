@@ -60,3 +60,7 @@
   color: #7159C1;
   display: block;
 }
+
+.actions .likes{
+  cursor: pointer;
+}

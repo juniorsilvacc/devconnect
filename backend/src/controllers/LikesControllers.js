@@ -18,6 +18,8 @@ module.exports = {
     likedPost.likes.push(user);
     await likedPost.save();
 
+    req.io.emit('like', post);
+
     return res.status(200).json({message: "Liked post", data: likedPost});
   },
   async noLiked(req, res){
@@ -36,6 +38,8 @@ module.exports = {
 
     noLikedPost.likes.pull(user);
     await noLikedPost.save();
+
+    req.io.emit('like', post);
 
     return res.status(200).json({message: "Not liked post", data: noLikedPost});
 

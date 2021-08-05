@@ -21,8 +21,8 @@ function Card({id, author, place, image, likes, description, hashtags}) {
         headers: {
           user: userId
         }
-      })
-      
+      });
+
     } catch (error) {
       alert('Não foi possível executar essa ação.');
     }
@@ -36,8 +36,8 @@ function Card({id, author, place, image, likes, description, hashtags}) {
         headers: {
           user: userId
         }
-      })
-      
+      });
+
     } catch (error) {
       alert('Não foi possível executar essa ação.');
     }
@@ -62,13 +62,14 @@ function Card({id, author, place, image, likes, description, hashtags}) {
             <div className="actions">
               {likes.includes(userId) ? 
                 <img 
+                  className="likes"
                   src={like} 
                   alt="Like" 
                   onClick={() =>{noLinkePost()}}
-                  
                 />
                  :
                 <img 
+                  className="likes"
                   src={noLike} 
                   alt="noLike" 
                   onClick={() =>{likePost()}}
@@ -79,9 +80,9 @@ function Card({id, author, place, image, likes, description, hashtags}) {
             </div>
 
             {likes.length > 1 ? 
-              <strong>{likes.length} pessoas gostaram</strong> :
+              <strong>{likes.length} pessoas curtiram</strong> :
               likes.length === 1 ? 
-              <strong>{likes.length} pessoa gostou</strong> :
+              <strong>{likes.length} pessoa curtiu</strong> :
               <strong>Não há curtidas</strong>
             }
           
